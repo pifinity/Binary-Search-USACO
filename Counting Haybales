@@ -1,0 +1,68 @@
+import java.io.*;
+import java.util.*;
+
+public class CountingHaybales {
+    static int low(int input){
+        if (input<haybales[0]) return 0;
+        if (input>haybales[N-1]) return N;
+        int l = 0;
+        int r = N-1;
+        while (l!=r){
+            int mid = (l+r+1)/2;
+
+
+            if (haybales[mid]<=input){
+                l = mid;
+            }else if (haybales[mid]>input){
+                r = mid-1;
+            }
+        }
+
+       // System.out.println(l+" "+r);
+        return l+1;
+    }
+
+
+
+    static int N;
+    static int Q;
+    static int[] haybales;
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new FileReader("haybales.in"));
+        PrintWriter out = new PrintWriter("haybales.out");
+
+        StringTokenizer st = new StringTokenizer(bf.readLine());
+        N = Integer.parseInt(st.nextToken());
+        Q = Integer.parseInt(st.nextToken());
+        haybales = new int[N];
+
+
+        st = new StringTokenizer(bf.readLine());
+        for (int i=0; i<N; i++){
+            haybales[i] = Integer.parseInt(st.nextToken());
+        }
+        Arrays.sort(haybales);
+
+
+        for (int i=0; i<Q; i++){
+            st = new StringTokenizer(bf.readLine());
+            int start = Integer.parseInt(st.nextToken());
+            int end = Integer.parseInt(st.nextToken());
+
+            out.println(low(end)-low(start-1));
+        }
+        out.close();
+
+
+
+
+        System.out.println(Arrays.toString(haybales));
+     /*   for (int i =1; i<10; i++){
+            System.out.println(low(i));
+        }
+
+      */
+
+
+    }
+}
