@@ -1,0 +1,74 @@
+import java.io.*;
+import java.util.*;
+
+public class cowdance {
+
+    static boolean check(int k){
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+
+        if (k<1) return false;
+
+        for (int i= 0; i<k; i++){
+            pq.add(lineup[i]);
+        }
+
+        for (int i =k; i<N; i++){
+            pq.add(pq.poll()+lineup[i]);
+        }
+
+
+        for (int lol: pq){
+            if (lol>max) return false;
+        }
+
+        return true;
+
+
+    }
+
+    static int N;
+    static int max;
+    static int[] lineup;
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new FileReader("cowdance.in"));
+        PrintWriter out = new PrintWriter("cowdance.out");
+
+        StringTokenizer st = new StringTokenizer(bf.readLine());
+        N = Integer.parseInt(st.nextToken());
+        max = Integer.parseInt(st.nextToken());
+
+        lineup = new int[N];
+
+        for (int i =0; i<N; i++){
+            lineup[i] = Integer.parseInt(bf.readLine());
+        }
+
+        int l = 0;
+        int r = N;
+
+        while (l<=r){
+            int mid = (l+r)/2;
+
+            if (check(mid)){
+                r = mid-1;
+            }else{
+                l = mid+1;
+            }
+
+        }
+
+        out.println(l);
+        out.close();
+
+        /*
+        for (int i=0; i<=N; i++){
+            System.out.println(check(i));
+        }
+
+         */
+
+
+
+
+    }
+}
