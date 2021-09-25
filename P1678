@@ -1,0 +1,65 @@
+import java.io.*;
+import java.util.*;
+
+public class EntranceExamVolunteer {
+    static int diff(int input){
+        if (input <=schools[0]) return schools[0]-input;
+        if (input>=schools[M-1]) return input-schools[M-1];
+        int l = 0;
+        int r = M-1;
+        int mid;
+        int ans = 0;
+
+        while (l<=r){
+            mid = (l+r)/2;
+            if (input ==schools[mid]){
+                return 0;
+            }else if(input<schools[mid]){
+                r = mid-1;
+            }else if(input>schools[mid]){
+                l = mid+1;
+                ans = mid;
+            }
+        }
+
+        return Math.min(Math.abs(schools[ans]-input), Math.abs(schools[ans+1]-input));
+
+
+
+    }
+
+    static int M;
+    static int N;
+    static int[] schools;
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(bf.readLine());
+
+        M = Integer.parseInt(st.nextToken());
+        N = Integer.parseInt(st.nextToken());
+
+        schools = new int[M];
+        int[] students = new int[N];
+
+        st = new StringTokenizer(bf.readLine());
+        for (int i= 0; i<M; i++) {
+            schools[i] = Integer.parseInt(st.nextToken());
+        }
+        Arrays.sort(schools);
+
+        st = new StringTokenizer(bf.readLine());
+        for (int i= 0; i<N; i++){
+            students[i] = Integer.parseInt(st.nextToken());
+        }
+
+        int ans =0;
+        for (int i=0; i<N; i++){
+            ans+=diff(students[i]);
+        }
+
+        System.out.println(ans);
+
+
+
+    }
+}
