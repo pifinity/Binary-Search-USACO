@@ -1,0 +1,51 @@
+import java.io.*;
+import java.util.*;
+
+public class HoofPaperScissors {
+    public static void main (String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new FileReader("hps.in"));
+        PrintWriter out = new PrintWriter("hps.out");
+
+        int N = Integer.parseInt(bf.readLine());
+
+        int[] H = new int[N+1];
+        int[] P = new int[N+1];
+        int[] S = new int[N+1];
+
+        for (int i=1; i<=N; i++){
+            char action = bf.readLine().charAt(0);
+
+            H[i] = H[i-1];
+            P[i] = P[i-1];
+            S[i] = S[i-1];
+
+            if (action=='H') H[i]++;
+            if (action=='P') P[i]++;
+            if (action=='S') S[i]++;
+
+        }
+
+        int h = H[N];
+        int p = P[N];
+        int s = S[N];
+
+        int ans =0;
+
+        for (int i =1; i<=N; i++){
+            ans = Math.max(ans, H[i]+p-P[i]);
+            ans = Math.max(ans, H[i]+s-S[i]);
+            ans = Math.max(ans, S[i]+p-P[i]);
+            ans = Math.max(ans, S[i]+h-H[i]);
+            ans = Math.max(ans, P[i]+s-S[i]);
+            ans = Math.max(ans, P[i]+h-H[i]);
+
+        }
+
+        out.println(ans);
+        out.close();
+
+        System.out.println(Arrays.toString(H));
+        System.out.println(Arrays.toString(P));
+        System.out.println(Arrays.toString(S));
+    }
+}
