@@ -1,0 +1,60 @@
+import java.io.*;
+import java.util.*;
+
+public class AngryCows {
+    static boolean check(int R){
+        int currPlace = 0;
+        int count = 1;
+
+        for (int i =1; i<N; i++){
+            if (hayBales[i]>hayBales[currPlace]+2*R){
+                count++;
+                currPlace = i;
+            }
+        }
+
+        return count<=K;
+    }
+
+    static int N;
+    static int K;
+    static int[] hayBales;
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new FileReader("angry.in"));
+        PrintWriter out = new PrintWriter("angry.out");
+
+        StringTokenizer st = new StringTokenizer(bf.readLine());
+
+        N = Integer.parseInt(st.nextToken());
+        K = Integer.parseInt(st.nextToken());
+        hayBales = new int[N];
+
+        for (int  i=0; i<N; i++){
+            hayBales[i] = Integer.parseInt(bf.readLine());
+        }
+        Arrays.sort(hayBales);
+
+        int l =0;
+        int r = 1000000000;
+
+        while (l<=r){
+            int mid = (l+r)/2;
+
+            if (check(mid)){
+                r = mid-1;
+            }else{
+                l = mid+1;
+            }
+        }
+
+        out.println(l);
+        out.close();
+/*
+        for (int i= 0; i<26; i++){
+            System.out.println(check(i));
+        }
+
+ */
+
+    }
+}
